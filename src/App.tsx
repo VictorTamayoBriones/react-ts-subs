@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { FormAddSub } from "./components/FormAddSub";
 import { SubsList } from "./components/SubsList";
 import { Isub } from "./models";
@@ -20,6 +20,7 @@ const INITIAL_STATE=[
 ]
 
 function App() {
+  const appRef = useRef<HTMLDivElement>(null);
 
   const [subs, setSubs]=useState<Isub[]>([]);
 
@@ -27,11 +28,13 @@ function App() {
     setSubs(INITIAL_STATE);
   }, [])
 
+  const handleNewSub = (newSub: Isub):void => setSubs([...subs, newSub]);
+
   return (
-    <div className="App">
+    <div className="App" ref={appRef} >
       <h1>Midu Subs</h1>
       <SubsList subs={subs}/>
-      <FormAddSub/>
+      <FormAddSub onNewSub={handleNewSub} />
     </div>
   )
 }

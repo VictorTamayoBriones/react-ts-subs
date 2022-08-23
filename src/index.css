@@ -42,7 +42,7 @@ li img{
 .formAddSub{
   width: 30%;
   margin: auto;
-  position: absolute;
+  position: fixed;
   top: 60px;
   left: 20px;
 }
@@ -53,6 +53,10 @@ li img{
   gap: 10px;
 }
 
-.formAddSub form input{
+.formAddSub form input, textarea{
   padding: 5px;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 100px;
+  min-height: 40px;
 }

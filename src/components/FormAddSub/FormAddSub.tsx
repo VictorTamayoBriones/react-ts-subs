@@ -1,17 +1,31 @@
 import React, { useState } from "react"
+import { Isub } from "../../models"
 
-function FormAddSub() {
+interface Props{
+    onNewSub: (newSub: Isub)=>void
+}
 
-    const[formData, setFormData]=useState({
+function FormAddSub({onNewSub}:Props) {
+
+    const[formData, setFormData]=useState<Isub>({
         nick:'',
         subMonths: 0,
         avatar: '',
         description: ''
     })
 
-    const handleSubmit=()=>{}
+    const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
+        onNewSub(formData);
+        setFormData({
+            nick:'',
+            subMonths: 0,
+            avatar: '',
+            description: ''
+        })
+    }
 
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>{
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -22,9 +36,9 @@ function FormAddSub() {
         <div className="formAddSub">
             <form onSubmit={handleSubmit}>
                 <input type="text" value={formData.nick}  onChange={handleChange}  name="nick" placeholder="nick"/>
-                <input type="number" value={formData.subMonths}  onChange={handleChange}  name="subMoths" placeholder="subMoths"/>
+                <input type="number" value={formData.subMonths}  onChange={handleChange}  name="subMonths" placeholder="subMoths"/>
                 <input type="text" value={formData.avatar}  onChange={handleChange}  name="avatar" placeholder="avatar"/>
-                <input type="text" value={formData.description}  onChange={handleChange}  name="description" placeholder="description"/>
+                <textarea value={formData.description}  onChange={handleChange}  name="description" placeholder="description"/>
 
                 <button>save new Sub!</button>
             </form>
